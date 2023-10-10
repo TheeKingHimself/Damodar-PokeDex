@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Damodar-PokeDex/static/css/main.64c96a14.css",
+    "main.js": "/Damodar-PokeDex/static/js/main.9a123508.js",
+    "static/js/787.7e0b23c5.chunk.js": "/Damodar-PokeDex/static/js/787.7e0b23c5.chunk.js",
+    "index.html": "/Damodar-PokeDex/index.html",
+    "main.64c96a14.css.map": "/Damodar-PokeDex/static/css/main.64c96a14.css.map",
+    "main.9a123508.js.map": "/Damodar-PokeDex/static/js/main.9a123508.js.map",
+    "787.7e0b23c5.chunk.js.map": "/Damodar-PokeDex/static/js/787.7e0b23c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64c96a14.css",
+    "static/js/main.9a123508.js"
+  ]
+}
