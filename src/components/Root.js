@@ -6,7 +6,7 @@ import PokemonDetail from './PokemonDetail';
 
 function Root() {
   return (
-    <Router>
+  <Router basename="/Damodar-PokeDex">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/pokemon/:id" element={<PokemonDetail />} />
