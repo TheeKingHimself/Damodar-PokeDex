@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 function PokemonDetail() {
@@ -79,6 +79,12 @@ function PokemonDetail() {
             Back
           </button>
         )}
+
+        <Link to="/" 
+            className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+            >
+          Back to Dex
+        </Link>
 
         {/* Only render the Next button if currentId is less than 1010 */}
         {currentId < 1010 && (
