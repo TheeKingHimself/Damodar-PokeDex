@@ -1,49 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './components/searchbar';
-import PokemonDisplay from './components/pokemondisplay';
-import NavigationButtons from './components/navigationbuttons';
 
 function App() {
-  const [pokemonData, setPokemonData] = useState(null);
-  const [pokemonId, setPokemonId] = useState(1);
   const [pokemonList, setPokemonList] = useState([]);
+  const REGIONAL_FILES = [
+    'kanto_pokedex.json',
+    'johto_pokedex.json',
+    'hoenn_pokedex.json',
+    'sinnoh_pokedex.json',
+    'unova_pokedex.json',
+    'kalos_pokedex.json',
+    'alola_pokedex.json',
+    'galar_pokedex.json',
+    'paldea_pokedex.json'
+  ];
+
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=150")
-      .then(response => response.json())
-      .then(data => {
-        // Fetch the details for each Pokémon and store it
-        Promise.all(
-          data.results.map(pokemon =>
-            fetch(pokemon.url).then(response => response.json())
-          )
-        )
-        .then(pokemonDetails => setPokemonList(pokemonDetails))
-        .catch(error => console.error("Error fetching individual Pokémon details:", error));
-      })
-      .catch(error => console.error("Error fetching Pokémon list:", error));
+    Promise.all(
+      REGIONAL_FILES.map(file => 
+        fetch(process.env.PUBLIC_URL + '/pokedex/' + file)
+          .then(response => response.json())
+      )
+    )
+    .then(allData => {
+      // Flatten the arrays into one list
+      const combinedData = allData.flat();
+      setPokemonList(combinedData);
+    })
+    .catch(error => console.error("Error fetching local Pokémon data:", error));
   }, []);
+  
 
 
 
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-      .then(response => response.json())
-      .then(data => setPokemonData(data))
-      .catch(error => console.error("Error fetching Pokémon data:", error));
-  }, [pokemonId]);
 
   return (
     <div className="pokedex-app">
       <SearchBar onSearch={name => console.log("Handle the search:", name)} />
   
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {pokemonList.map((pokemon, index) => (
-          <div key={index} className="border p-4 rounded text-center">
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <h2 className="text-xl mb-2">{pokemon.name}</h2>
-          </div>
-        ))}
+          {pokemonList.slice(0, 1010).map((pokemon, index) => (
+            <div key={index} className="border p-4 rounded text-center">
+              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+              <h2 className="text-xl capitalize mb-2">#{pokemon.id} {pokemon.name}</h2>
+            </div>
+          ))}
       </div>
     </div>
   );
