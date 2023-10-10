@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './components/searchbar';
+import PokemonDetail from './components/PokemonDetail';
+import Root from './components/Root';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Link,
+  Route
+} from 'react-router-dom';
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -38,14 +47,15 @@ function App() {
   return (
     <div className="pokedex-app">
       <SearchBar onSearch={name => console.log("Handle the search:", name)} />
-  
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {pokemonList.slice(0, 1010).map((pokemon, index) => (
-            <div key={index} className="border p-4 rounded text-center">
+        {pokemonList.slice(0, 1010).map((pokemon, index) => (
+          <Link key={index} to={`/pokemon/${pokemon.id}`}>
+            <div className="border p-4 rounded text-center">
               <img src={pokemon.sprites.front_default} alt={pokemon.name} />
               <h2 className="text-xl capitalize mb-2">#{pokemon.id} {pokemon.name}</h2>
             </div>
-          ))}
+          </Link>
+        ))}
       </div>
     </div>
   );
