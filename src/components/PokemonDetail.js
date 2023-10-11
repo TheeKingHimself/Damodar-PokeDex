@@ -9,6 +9,8 @@ function PokemonDetail() {
   const currentId = parseInt(id);
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
+  const [movesByGame, setMovesByGame] = useState({});
+
 
   
 
@@ -45,10 +47,12 @@ function PokemonDetail() {
         const foundPokemon = data.find(p => p.id === parseInt(id));
         if (foundPokemon) {
           setPokemon(foundPokemon);
+          const transformedMoves = transformMoveData(foundPokemon.moves);
+          setMovesByGame(transformedMoves);
           break;
         }
       }
-    };
+
 
     fetchPokemonData();
 
